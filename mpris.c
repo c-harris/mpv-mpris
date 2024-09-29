@@ -910,7 +910,7 @@ static void on_name_lost(GDBusConnection *connection,
         UserData *ud = user_data;
         pid_t pid = getpid();
         char *name = g_strdup_printf("org.mpris.MediaPlayer2.mpv.instance%d", pid);
-        ud->bus_id = g_bus_own_name(G_BUS_TYPE_SESSION,
+        ud->bus_id = g_bus_own_name(G_BUS_TYPE_SYSTEM,
                                     name,
                                     G_BUS_NAME_OWNER_FLAGS_NONE,
                                     NULL, NULL, NULL,
@@ -1097,7 +1097,7 @@ int mpv_open_cplugin(mpv_handle *mpv)
     ud.paused = FALSE;
 
     g_main_context_push_thread_default(ctx);
-    ud.bus_id = g_bus_own_name(G_BUS_TYPE_SESSION,
+    ud.bus_id = g_bus_own_name(G_BUS_TYPE_SYSTEM,
                                "org.mpris.MediaPlayer2.mpv",
                                G_BUS_NAME_OWNER_FLAGS_DO_NOT_QUEUE,
                                on_bus_acquired,
